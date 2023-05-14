@@ -1,0 +1,186 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <h4 class="card-title " *ngIf="dataobject">Tâche :  {{dataobject?.titre}}</h4>
+                        
+                    </div>
+                    
+                      
+                    <div class="card-body">
+                        <ul *ngIf="dataobject">
+                            <li><b>Priorité : </b>{{dataobject?.priorite}}</li><br/>
+                            <li><b>Etat :</b> {{dataobject?.etat}}</li><br/>
+                            <li><b>Date de création :</b> {{dataobject.date_creation | date}}</li><br/>
+                            <li><b>Créateur de tâche :</b> {{dataobject.employee_cree?.nom}} {{dataobject.employee_cree?.prenom}}</li><br/>
+                            <li *ngIf="dataobject.employee_realiser?.nom!=null"><b>Réalisateur de tâche :</b> {{dataobject.employee_realiser?.nom}} {{dataobject.employee_realiser?.prenom}}</li>
+                           
+                        </ul>
+                    <div class="buttonterminee">
+                      
+
+                        <button type="button" value="Terminée"  name="terminee"  class="btn btn-success"  *ngIf="dataobject?.etat=='En cours' &&(showDirecteur || showDeveloppeur)" (click)="updatetacheTerminee()">
+                            <i class="material-icons">done</i>   Réaliser
+                        </button>
+                    </div>
+
+                    
+                        
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="col-md-8" *ngIf="dataobject?.etat=='Réalisée' &&((databug!='' && (showDeveloppeur || showDirecteur))|| showTesteur)">
+                <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                    <h4 class="card-title" >Bugs</h4>
+                    
+                </div> 
+                <div id="haut">
+                <button type="button" *ngIf="showTesteur" class="btn btn-primary" (click)="clickAddBug()" style="float:right;" ><i class="material-icons">add</i> Ajouter Bug</button>
+            </div>
+                    <div class="card-body">
+                        <!-- <table class="table">
+                            <thead class=" text-primary">
+                                <th scope="col">Type</th>
+                                <th scope="col">Titre</th>
+                                    <th scope="col">Déscription</th>
+                                    <th scope="col">Date de création</th>
+                                    <th scope="col">Etat</th>
+                                    
+                                    
+                                
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dataSource">
+                                    <td>{{item.type}}</td>
+                                    <td>{{item.titre}}</td>
+                                      <td>{{item.description}}</td>
+                                      <td>{{item.date_creation | date}}</td>
+                                      <td>{{item.etat}}</td>
+                                      <td class="td-actions text-right">
+                                        <button mat-raised-button type="button" *ngIf="verifyUser(item.employee_cree)" matTooltip="Modifier" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon" (click)="onEdit(item)" >
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button mat-raised-button type="button" *ngIf="verifyUser(item.employee_cree)" matTooltip="Supprimer" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="delete(item._id)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                        <button mat-raised-button type="button" *ngIf="item.etat=='En cours' && (showDeveloppeur || showDirecteur)" matTooltip="Corriger" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="updateBugCorriger(item._id)">
+                                          <i class="material-icons">done</i>
+                                      </button>
+                                    </td>
+                                     
+                                      
+                                  </tr>  
+                                 
+                           
+                            
+                            </tbody>
+
+                        </table> -->
+
+
+
+                        <!-- <mat-form-field appearance="standard">
+                            <mat-label>Filter</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                          </mat-form-field> -->
+                          
+                          <div class="mat-elevation-z8">
+                            <table mat-table [dataSource]="dataSource" matSort>
+                          
+                             
+                              <ng-container matColumnDef="type">
+                                <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> type </th>
+                                <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+                              </ng-container>
+                          
+                              
+                              <ng-container matColumnDef="Titre">
+                                <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Titre </th>
+                                <td mat-cell *matCellDef="let row"> {{row.titre}}</td>
+                              </ng-container>
+                          
+                           
+                              <ng-container matColumnDef="Description">
+                                <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Déscription </th>
+                                <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+                              </ng-container>
+                          
+                           
+                              <ng-container matColumnDef="Date_de_creation">
+                                <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Date de création </th>
+                                <td mat-cell *matCellDef="let row"> {{row.date_creation | date}} </td>
+                              </ng-container>
+
+                              <ng-container matColumnDef="Etat">
+                                <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Etat</th>
+                                <td mat-cell *matCellDef="let row"> {{row.etat}} </td>
+                              </ng-container>
+
+                              <ng-container matColumnDef="Action">
+                                <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+                                <td mat-cell *matCellDef="let row"> 
+                                    <button mat-raised-button type="button" [disabled]="!verifyUser(row.employee_cree) || row.etat=='Corrigé'" *ngIf="showTesteur" matTooltip="Modifier" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon" (click)="onEdit(row)" >
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                    <button mat-raised-button type="button" [disabled]="!verifyUser(row.employee_cree) || row.etat=='Corrigé'" *ngIf="showTesteur" matTooltip="Supprimer" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="delete(row._id)">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-success" *ngIf="(showDirecteur || showDeveloppeur)&&(row.etat=='En cours')" (click)="updateBugCorriger(row._id)" style="float:right;" > <i class="material-icons">done</i> Corriger </button> -->
+                                    <!-- <button mat-raised-button type="button"  *ngIf="(showDeveloppeur || showDirecteur)&&row.etat=='Corrigé'"  [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" >
+                                      <i class="material-icons">done</i> 
+                                  </button> -->
+                                  <button type="button" class="btn btn-success"  [disabled]="row.etat=='Corrigé' " *ngIf="(showDeveloppeur || showDirecteur)" (click)="updateBugCorriger(row._id)" style="float:right;" ><i class="material-icons">done</i> Corriger</button>
+                                </td>
+                              </ng-container>
+
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          
+                             
+                              <!-- <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                              </tr> -->
+                            </table>
+                          
+                            <mat-paginator [pageSizeOptions]="[1, 2, 3, 4, 5]" aria-label="Select page of bugs"></mat-paginator>
+                          </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+   
+
+
+
+
+            
+        </div>
+        <div class="image">
+            <img src="/assets/img/fleche-gauche.png" (click)="retour()">
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+        </div>  
+    </div>
+</div>
+

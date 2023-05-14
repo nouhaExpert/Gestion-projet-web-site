@@ -1,0 +1,164 @@
+<div class="main-content">
+    <div class="container-fluid">
+      
+        
+      <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+              <div class="row">
+                <div class="col-md-2"> 
+                
+                  <mat-form-field class="example-full-width">
+                   
+                <form>
+                  
+                <mat-select id="i" matNativeControl [(ngModel)]="selected" (ngModelChange)="onChange($event)" class="select">
+                  <mat-option *ngFor="let item of dataAnnee"  value={{item}} >{{item}}</mat-option>
+                  
+                </mat-select>
+            </form>
+
+              </mat-form-field>
+              
+                </div>
+                <div class="col-md-6"> 
+                <div class="action">
+                  
+                  <button type="button" class="btn"  (click)="export()"><i class="fa fa-download"></i>Télécharger</button>
+                  <!-- <button type="button" value="Terminée"  name="terminee"  class="btn btn-success"  *ngIf="dataobject?.etat=='En cours' &&(showDirecteur || showDeveloppeur)" (click)="updatetacheTerminee()">
+                    <i class="material-icons">done</i>   Terminée
+                </button> -->
+               </div>
+                </div>
+              </div>
+            
+                </div>
+              </div>
+            </div>
+
+             
+          <div class="col-lg-12">
+            
+            <div  class="card">
+              <div id="content" #content>
+               
+                    <h1>Rapport annuel d'activité de l'année {{selected}}</h1>
+              
+               
+                
+                <div class="card-body" id="body">
+                    <ul >
+                        <li><b >Nom et prénom </b>: <input value="{{currentUser.nom}} {{currentUser.prenom}}" style="border: hidden; border: 0"></li><br/>
+                        <li><b>Grade </b>: <input value="{{grade?.nom}}" style="border: hidden; border: 0"> </li><br/>
+                        <li><b>Date </b>: <input value="{{date | date}}" style="border: hidden; border: 0"> </li><br/>
+                        <li><b>Catégorie </b>: <input value="Rapport d’activité" style="border: hidden; border: 0"> </li><br/>
+                        <li><b>Année</b>: <input value="{{selected}}" style="border: hidden; border: 0"> </li>
+                       
+                    </ul><br/><br/>
+
+
+                    <!-- table projet -->
+                    <div *ngIf="dataProjet && dataProjet!=''">
+                    <p>En {{selected}}, j’ai participé à l’achèvement et au développement des projets Web suivants:</p>
+                    <table class="table-style">
+                        <thead >
+                          <tr >
+                            <th scope="col">Les Projets</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of dataProjet">
+                          
+                            <td><input value="{{item.titre}}" style="border: hidden; border: 0"></td>
+                            
+                          </tr>
+                        </tbody>
+                      </table><br/><br/>
+                    </div>
+                    <!-- table activité -->
+                    <div *ngIf="dataActivite!='' && dataActivite">
+                      <p>De plus, j’ai entrepris les activités suivantes:</p>
+                      <table class="table-style">
+                        <thead >
+                          <tr >
+                            <th scope="col">Autres activités</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of dataActivite">
+                          
+                            <td><input value="{{item.titre}}" style="border: hidden; border: 0"></td>
+                            
+                          </tr>
+                        </tbody>
+                      </table><br/><br/>
+                    </div>
+                    <!-- table tache ou bug -->
+                    <div *ngIf="dataProjetAvecTache && dataProjetAvecTache!=''">
+                      <p *ngIf="((showDirecteur && !showTesteur)|| (showDeveloppeur && !showTesteur) )">Enfin, concernant les projets auxquels j'ai participé, j'ai réalisé les tâches suivantes:</p>
+                      <p *ngIf="((!showDirecteur && showTesteur &&!showDeveloppeur))">Enfin, concernant les projets auxquels j'ai participé, j'ai détecté les bugs suivantes:</p>
+                      <p *ngIf="(showTesteur &&(showDeveloppeur || showDirecteur))">Enfin, concernant les projets auxquels j'ai participé, j'ai réalisé les tâche suivantes et j’ai détecté les bugs suivantes:</p>
+                      <table class="table-style2">
+                        <thead >
+                          <tr>
+                            <th scope="col" >Les projets</th>
+                            <th scope="col" *ngIf="(showDirecteur || showDeveloppeur)">Les tâches réalisées</th>
+                            
+                            <th scope="col" *ngIf="showTesteur">Les bugs Crée par tâche</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            
+                              
+
+                          <!-- developpeur ou directeur -->
+                            <tr *ngFor="let item of dataProjetAvecTache" >
+                                <td *ngIf="(!showTesteur &&(showDeveloppeur || showDirecteur))&& item.tache!=''"><input value="{{item.titre}}" style="border: hidden; border: 0"></td>
+                                <td *ngIf="(!showTesteur &&(showDeveloppeur || showDirecteur)) && item.tache!=''"><ul><div *ngFor="let elem of item.tache"><li><input value="{{elem.titre}}" style="border: hidden; border: 0"></li></div></ul></td>
+                            </tr>
+                            <!-- testeur -->
+                          
+                            <tr *ngFor="let item of dataProjetAvecTache">
+                              
+                              <td *ngIf="((!showDirecteur && showTesteur &&!showDeveloppeur))"><input value="{{item.titre}}" style="border: hidden; border: 0"></td>
+                             
+                              <td *ngIf="((!showDirecteur && showTesteur &&!showDeveloppeur))">
+                                <ul><div *ngFor="let elem of item.tacheBug"><li *ngIf="elem.bug!=''"> Les bugs pour la tâches «{{elem.titre}}» : </li>
+                                  <ul><div *ngFor="let elembug of elem.bug"><li *ngIf="elem.bug!=''"><input value="{{elembug.titre}}" style="border: hidden; border: 0"> </li></div></ul>
+                                  
+                                </div></ul>
+                                
+                              </td>
+                             
+                              
+                          </tr>
+               
+                          <!-- testeur et(developpeur ou directeur) -->
+                          <tr *ngFor="let item of dataProjetAvecTache">
+                            <td *ngIf="(showTesteur &&(showDeveloppeur || showDirecteur))"><input value="{{item.titre}}" style="border: hidden; border: 0"></td>
+                            <td *ngIf="(showTesteur &&(showDeveloppeur || showDirecteur))"><ul><div *ngFor="let elem of item.tache"><li><input value="{{elem.titre}}" style="border: hidden; border: 0"> </li></div></ul></td>
+                            <td *ngIf="(showTesteur &&(showDeveloppeur || showDirecteur))">
+                              <ul><div *ngFor="let elem of item.tacheBug"><li *ngIf="elem.bug!=''">Les bugs pour la tâches «{{elem.titre}}» : </li>
+                                <ul><div *ngFor="let elembug of elem.bug"><li *ngIf="elem.bug!=''"><input value="{{elembug.titre}}" style="border: hidden; border: 0"> </li></div></ul>
+                              </div></ul>
+                              
+                            </td>
+                        </tr>
+                        
+                            
+                  
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+           
+
+    </div>
+</div>
+
+

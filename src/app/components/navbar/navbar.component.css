@@ -1,0 +1,20 @@
+.item{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+    color: black;
+}
+#header {
+    padding: 8px 20px;
+    background: #e4e7ea;
+    color: #73818f;
+    border-bottom: 1px solid #c8ced3;}
+
+    .profile{
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        border-radius: 50%;
+        
+    }
+

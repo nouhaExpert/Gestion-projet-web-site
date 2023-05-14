@@ -1,0 +1,75 @@
+<div class="body">
+  <div class="container">
+    
+    <div class="cover">
+      <div class="front">
+        <img src="../../../assets/img/image1.jpg" alt="">
+        <div class="text">
+          <span class="text-1">Connectez-vous à votre compte</span>
+          
+        </div>
+      </div>
+      
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Connexion</div>
+            
+          <form 
+          
+          (ngSubmit)="onSubmit()"
+          [formGroup]="form"
+          novalidate>
+            <div class="input-boxes">
+              <div class="input-box">
+                <img src="/assets/img/envelope-solid.svg"/>
+                <input type="text"   placeholder="Entrez votre email" name="email"  
+                
+                required
+                email
+                formControlName="email">
+                
+                
+              </div>
+              <span class="text-danger" *ngIf="form.get('email').errors?.['required'] && form.get('email').touched">Email est obligatoire</span>
+              <span class="text-danger" *ngIf="form.get('email').errors?.['email'] ">Email est erroné</span>
+              
+             
+      
+              <div class="input-box">
+                <img src="/assets/img/lock-solid.svg"/>
+                <input type="password"  placeholder="Entrer votre mot de passe" name="password" 
+                
+                required
+                minlength="6"
+                formControlName="password">
+                
+              </div>
+              
+              <span class="text-danger" *ngIf="form.get('password').errors?.['required'] && form.get('password').touched">Mot de passe obligatoire</span>
+              <span class="text-danger" *ngIf="form.get('password').errors?.['minlength'] ">Mot de passe doit composer au moins six caractères</span>
+
+             <div class="error">
+
+              <span  class="text-danger"  *ngIf="errorMessage && !incorrecte">
+               <h3><b>{{errorMessage}}</b></h3>
+              </span>
+              <span class="text-danger"  *ngIf="incorrecte">
+                <h3> <b>{{message}}</b></h3>
+               </span>
+             </div>
+             <mat-progress-bar mode="indeterminate"  *ngIf="incorrecte"></mat-progress-bar>
+              <div class="button input-box" >
+                <input  [disabled]="incorrecte" type="submit" value="Connexion" name="Connexion">
+              </div>
+              
+            </div>
+            
+        </form>
+      </div>
+      
+    
+    </div>
+  </div>
+  </div>

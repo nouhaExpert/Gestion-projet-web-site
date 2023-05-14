@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab&display=swap');
+
+ h1 {
+    text-align: center;
+    color:darkmagenta;
+    margin-top: 4%;
+    font-family: 'Roboto Slab', serif;
+}
+b {
+    
+        text-decoration: underline solid;
+}
+#body{
+    margin-top: 5%;
+}
+.table{
+    box-shadow: 0 5px 50px rgba(0,0,0,0.15);
+    cursor: pointer;
+    margin: 0px auto;
+    border: 2px solid midnightblue;
+}
+tr{
+    text-align: center;
+}
+thead tr {
+    background-color: midnightblue;
+    color: #fff;
+    
+}
+.table-style  {
+    border-collapse: collapse;
+    box-shadow: 0 5px 50px rgba(0,0,0,0.15);
+    cursor: pointer;
+    margin: 0px auto;
+    border: 1px solid rgb(162, 162, 165);
+    width: 50%;
+}
+.table-style2 {
+    border-collapse: collapse;
+    box-shadow: 0 5px 50px rgba(0,0,0,0.15);
+    cursor: pointer;
+    margin: 0px auto;
+    border: 1px solid rgb(162, 162, 165);
+    width: 80%;
+}
+th, td {
+    padding: 10px 60px;
+    text-align: center;
+}
+tbody tr, td, th {
+    border: 1px solid #ddd;
+}
+
+.btn {
+    background-color:rgb(43, 63, 124);
+    
+    color: white;
+    margin-left:650px;
+    cursor: pointer;
+    border-radius: 8px;
+    
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color: midnightblue;
+  }
+
+.haut{
+    display: flex;
+    justify-content: space-between;
+}
+
+

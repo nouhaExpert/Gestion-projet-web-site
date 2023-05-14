@@ -1,0 +1,43 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+          
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <h4 class="card-title ">Activité : {{dataActivite?.titre}}</h4>
+                        
+    
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <ul *ngIf="dataActivite">
+                                <li><b>Type :</b> {{dataActivite?.type}}</li><br/>
+                                <li><b>Titre :</b> {{dataActivite?.titre}}</li><br/>
+                                <li><b>Déscription :</b> {{dataActivite?.description}}</li><br/>
+                                <li><b>Créateur de l'activité :</b> {{dataActivite.employee_cree?.nom}} {{dataActivite.employee_cree?.prenom}}</li><br/>
+                                <li><b>Date de création :</b> {{dataActivite?.date_creation | date}}</li><br/>
+                                
+                                <li><b>Fichier :</b> {{dataActivite?.file}}
+                                    <a href={{file}} class="download" mat-raised-button type="button"   class="btn btn-info btn-link"  >
+                                        <i class="material-icons">download</i> Télécharger
+                                    </a>
+                                </li><br/>
+                            
+                                <li><b>Employés participants :</b><ul><div *ngFor="let item of dataActivite.employee"><li> {{item.nom}} {{item.prenom}}</li></div></ul></li>
+                            </ul>
+                            
+                            <div class="image">
+                            <img src="/assets/img/fleche-gauche.png" routerLink="/admin/activite">
+                            </div>
+                            
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

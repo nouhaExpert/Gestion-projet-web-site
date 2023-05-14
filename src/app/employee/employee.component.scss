@@ -1,0 +1,55 @@
+
+#search {
+    
+    position: relative;
+    flex: 1 1 auto;
+    width: 20%;
+    min-width: 5;
+    margin-top:2%;
+    margin-left:40%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    
+}
+#searchicon{
+    margin-top: 10%;
+}
+#haut{
+    margin-right:3%;
+
+}
+.btnrole input{
+    color: #fff;
+    background: #a5a4a7;
+    
+    padding: 0;
+    margin-left: 82%;
+}
+#ajout{
+    margin-left: 80%;
+
+}
+// .profile{
+//     width: 40px;
+//     height: 40px;
+//     overflow: hidden;
+    
+
+// }
+.profile{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    
+}
+
+table {
+    width: 100%;
+  }
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }

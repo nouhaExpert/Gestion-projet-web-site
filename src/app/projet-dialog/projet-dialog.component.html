@@ -1,0 +1,89 @@
+
+         
+           <h2 mat-dialog-title>Projet</h2> 
+          <form [formGroup]="formValue">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Titre" type="text" required minlength="2" formControlName="titre">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf=" formValue.get('titre').errors?.['required'] && formValue.get('titre').touched">Titre est obligatoire</span>
+                   
+                    <span class="text-danger" *ngIf="formValue.get('titre').errors?.['minlength']  ">Titre doit composer au moins deux caractères</span>
+                </div>
+                </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" >
+                    <textarea matInput placeholder="Description" type="text" required minlength="2" formControlName="description" ></textarea>
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('description').errors?.['required'] && formValue.get('description').touched">Description est obligatoire</span>
+                   
+                  <span class="text-danger" *ngIf="formValue.get('description').errors?.['minlength'] ">Description doit composer au moins deux caractères</span>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      
+                      <input matInput placeholder="Date début" type="date" required formControlName="date_debut">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf=" formValue.get('date_debut').errors?.['required'] && formValue.get('date_debut').touched">Date début est obligatoire</span>
+                   
+                  
+                </div>
+            </div>
+                <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Date fin" id="date-fin"type="date" required  formControlName="date_fin">
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('date_fin').errors?.['required'] && formValue.get('date_fin').touched">Date fin est obligatoire</span>
+                  <span class="text-danger" *ngIf=" !verifyDateFin() && verif==false && date!=''">Date fin doit être supérieure a la date du début</span>
+                  
+                </div>
+               
+            </div>
+            <div class="row">
+              <div class="col-md-12"> 
+                <mat-form-field class="example-full-width">
+                  <mat-label>Équipe</mat-label> 
+                
+              <mat-select matNativeControl   multiple required formControlName="equipe" >
+                
+                <mat-option *ngFor="let item of dataEmployee" value={{item._id}} >
+                  {{item.nom}} {{item.prenom}}
+              </mat-option>
+                
+                
+              </mat-select>
+              </mat-form-field>
+              <span class="text-danger" *ngIf=" formValue.get('equipe').errors?.['required'] && formValue.get('equipe').touched">Equipe est obligatoire</span>
+              </div>
+              </div>
+            
+              <div class="row">
+                <div class="col-md-12">
+                  
+                      <mat-label class="btn btn-default p-0">
+                        <input type="file" [required]="!editData" formControlName="file" (change)="selectFile($event)" />
+                      </mat-label>
+                      <span class="text-danger" *ngIf="!editData && formValue.get('file').errors?.['required'] && formValue.get('file').touched">Fichier est obligatoire</span>
+                   
+            </div>
+            </div>
+         
+
+               
+                
+                
+              <div  mat-dialog-actions [align]="'end'">
+                  
+                    <button type="button" id="cancel" class="btn btn-secondary"mat-dialog-close>Close</button>
+                    <button mat-raised-button type="submit" [disabled]="formValue.invalid" class="btn btn-primary pull-right" (click)="gestionProjet()">{{actionBtn}}</button>
+                    
+                    
+                    
+                </div>
+            </form>
+            

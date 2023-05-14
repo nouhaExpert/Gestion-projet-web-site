@@ -1,0 +1,141 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+      
+        <div class="row">
+          <div id="ajout">
+          <button type="button" class="btn btn-primary" (click)="clickAddActivite()"  style="float:right;" ><i class="material-icons">add</i> Ajouter Activité</button>
+        </div>
+          <div class="col-md-12">
+            
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                    <h4 class="card-title ">Mes Activités</h4>
+                    
+                    
+                    
+                </div>
+                
+                <div id="haut">
+                  <div id="search"  >
+                    <mat-form-field appearance="standard">
+                       <mat-label>Recherche</mat-label>
+                       <input matInput [(ngModel)]="titre"  (input)="SearchMesActivite()">
+                     </mat-form-field>
+                     <i class="material-icons" id="searchicon">search</i>
+                    <div class="ripple-container"></div>
+                     
+                   </div>
+                
+                 
+                 </div>
+                <div class="card-body">
+                  
+                    <div class="table-responsive">
+
+                        <table class="table">
+                            <thead class=" text-primary">
+                              <th scope="col">Type</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">Description</th>
+                                <th scope="col" >Date de création</th>
+                                
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dataMesActivite">
+                                  <td>{{item.type}}</td>
+                                    <td>{{item.titre}}</td>
+                                    <td>{{item.description}}</td>
+                                    <td>{{item.date_creation | date}}</td>
+                                    
+                                    <td class="td-actions text-right">
+                                      <button mat-raised-button type="button" [disabled]="!verifyUser(item.employee_cree)" matTooltip="Modifier" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon" (click)="onEdit(item)" >
+                                          <i class="material-icons">edit</i>
+                                      </button>
+                                      <button mat-raised-button type="button" [disabled]="!verifyUser(item.employee_cree)" matTooltip="Supprimer" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="delete(item._id)">
+                                          <i class="material-icons">delete</i>
+                                      </button>
+                                      <button mat-raised-button type="button" matTooltip="voir" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="details(item._id)">
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+                                  </td>
+                                   
+                                    
+                                </tr>      
+                               
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+          
+            <div class="col-md-12" *ngIf="showDirecteur">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <h4 class="card-title "> Toutes les activités</h4>
+                    
+                    </div>
+                    <div id="search"  >
+                      <mat-form-field appearance="standard">
+                         <mat-label>Recherche</mat-label>
+                         <input matInput [(ngModel)]="titreAll" (input)="SearchActivite()">
+                       </mat-form-field>
+                       <i class="material-icons" id="searchicon">search</i>
+                      <div class="ripple-container"></div>
+                       
+                     </div>
+                   
+                   
+                     
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                  <th scope="col">Type</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Créateur</th>
+                                    <th scope="col" >Date de création</th>
+                                    
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataActivite">
+                                      <td>{{item.type}}</td>
+                                        <td>{{item.titre}}</td>
+                                        <td>{{item.description}}</td>
+                                        <td>{{item.employee_cree.nom}} {{item.employee_cree.prenom}}</td>
+                                        <td>{{item.date_creation | date}}</td>
+                                        
+                                        
+                                        <td class="td-actions text-right">
+                                          <button mat-raised-button type="button" [disabled]="!verifyUser(item.employee_cree._id)" matTooltip="Modifier" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon" (click)="onEdit(item)" data-toggle="modal" data-target="#exampleModal">
+                                              <i class="material-icons">edit</i>
+                                          </button>
+                                          <button mat-raised-button type="button" [disabled]="!verifyUser(item.employee_cree._id)" matTooltip="Supprimer" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="delete(item._id)">
+                                              <i class="material-icons">delete</i>
+                                          </button>
+                                          <button mat-raised-button type="button" matTooltip="voir" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="details(item._id)">
+                                            <i class="material-icons">visibility</i>
+                                        </button>
+                                      </td>
+                                       
+                                        
+                                    </tr>      
+                                   
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+

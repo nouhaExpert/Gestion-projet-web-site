@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+      /* for dialog pop-up */
+ .btn-dialog-close{
+    width: 45px;
+    min-width: 0px !important;
+    height: 40px;
+    padding: 0px !important;
+  }
+
+   /* mat-confirm-dialog (customised dialog) */
+   .confirm-dialog-container .mat-dialog-container {
+    border-radius: .25em .25em .4em .4em;
+    padding: 0px;
+}
+.confirm-dialog-container .content-container{
+    margin: 2px 5px 15px 5px;
+    
+    display: flex;
+}
+.confirm-dialog-container #close-icon{
+    margin-left: auto;
+    order: 2;
+    font-weight: bolder;
+}
+.confirm-dialog-container #close-icon:hover{
+cursor: pointer;
+}
+
+.confirm-dialog-container #no-button{
+
+background-color: #b6bece;
+color:white;
+border-radius: 10px;
+}
+
+.confirm-dialog-container #yes-button{
+    background-color: #fc7169;
+    
+
+    color:white;
+    margin-left: 23%;
+    border-radius: 10px;
+}
+
+.confirm-dialog-container span.content-span{
+    padding:  10px 16px;
+    
+    margin: 2px 5px 20px 0px;
+    display: flex;
+    font-size: 14.5px;
+    color: #6a7070;
+}
+.confirm-dialog-container h2.content-titre{
+    padding:  35px 16px;
+    
+    
+    font-size: 20px;
+    color: #060707;
+}
+.bas{
+    margin-left: 10%;
+}

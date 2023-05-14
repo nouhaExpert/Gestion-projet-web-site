@@ -1,0 +1,57 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div id="ajout">
+                <button type="button" class="btn btn-primary" (click)="clickAddGrade()" style="float:right;"><i class="material-icons">add</i> Ajouter Grade</button>
+              </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <h4 class="card-title ">Grade</h4>
+                        
+                        
+                        
+                    </div>
+                    
+                      
+                     
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th scope="col">Nom</th>
+                                    <th  scope="col">Employés</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataGrade">
+                                        <td>{{item.nom}}</td>
+                                        <td><ul><div *ngFor="let employee of item.employee"><li> {{employee.nom}} {{employee.prenom}}</li></div></ul></td>
+                                        
+                                        <td class="td-actions text-right">
+                                          <button mat-raised-button type="button" *ngIf="verifygrade(item)" matTooltip="Modifier" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon" (click)="onEdit(item)" >
+                                              <i class="material-icons">edit</i>
+                                          </button>
+                                          <button mat-raised-button type="button" *ngIf="verifygrade(item)" matTooltip="Supprimer" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="delete(item._id)">
+                                              <i class="material-icons">delete</i>
+                                          </button>
+                                          
+                                      </td>
+                                        
+                                    </tr>      
+                                   
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+  
+  
+  

@@ -1,0 +1,147 @@
+
+     <h2 mat-dialog-title>Employé</h2> 
+       
+         
+          <form [formGroup]="formValue">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nom" type="text" required minlength="2"  formControlName="nom">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf=" formValue.get('nom').errors?.['required'] && formValue.get('nom').touched">Nom est obligatoire</span>
+                   
+                    <span class="text-danger" *ngIf="formValue.get('nom').errors?.['minlength'] ">Nom doit composer au moins deux caractères</span>
+              
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Prénom" required minlength="2"  formControlName="prenom">
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('prenom').errors?.['required'] && formValue.get('prenom').touched">Prénom est obligatoire</span>
+                   
+                  <span class="text-danger" *ngIf="formValue.get('prenom').errors?.['minlength'] ">Prénom doit composer au moins deux caractères</span>
+              </div>
+                </div>
+               
+              <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <div class="email">
+                      <input matInput placeholder="Email" type="text" required formControlName="email" >@rns.tn
+                    </div>
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf=" formValue.get('email').errors?.['required'] && formValue.get('email').touched">Email est obligatoire</span>
+                   
+                    <span class="text-danger" *ngIf=" !verifyEmail() && email1==false">Email est erroné</span>
+                </div>
+                
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Âge" type="number" required min="20" max="65" formControlName="age">
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('age').errors?.['required'] && formValue.get('age').touched">Âge est obligatoire</span>
+                  <span class="text-danger" *ngIf="formValue.get('age').errors?.['min']">l'âge doit être au minimum 20</span>
+                  <span class="text-danger" *ngIf="formValue.get('age').errors?.['max'] ">l'âge doit être au maximum 65</span> 
+                  
+                </div>
+            </div>
+            
+                <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Téléphone" type="number" required min="10000000" max="99999999" formControlName="tel">
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('tel').errors?.['required'] && formValue.get('tel').touched">Téléphone est obligatoire</span>
+                  <span class="text-danger" *ngIf="(formValue.get('tel').errors?.['min'] || formValue.get('tel').errors?.['max'])">Téléphone doit être 8 nombres</span>
+                  
+                </div>
+
+                <!-- <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Mot de passe" type="Password" required minlength="6" formControlName="motdepasse">
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('motdepasse').errors?.['required'] && formValue.get('motdepasse').touched">Mot de passe est obligatoire</span>
+                  <span class="text-danger" *ngIf="formValue.get('motdepasse').errors?.['minlength'] ">Mot de passe doit composer au moins six caractères</span>
+                </div> -->
+                <div class="col-md-6">  
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Rôles</mat-label>
+                  
+                <mat-select matNativeControl   multiple required formControlName="role" >
+                  
+                  <mat-option *ngFor="let item of dataRole"  value={{item._id}} >
+                    {{item.nom}}
+                </mat-option>
+                  
+                  
+                </mat-select>
+              </mat-form-field> 
+              <span class="text-danger" *ngIf=" formValue.get('role').errors?.['required'] && formValue.get('role').touched">Rôle est obligatoire</span>
+                </div>
+            </div>
+            
+            <div class="row">
+              
+
+              <div class="col-md-6"> 
+                
+                <mat-form-field class="example-full-width">
+                  <mat-label>Fonction</mat-label>
+                
+              <mat-select matNativeControl required formControlName="fonction">
+                
+                <mat-option *ngFor="let item of dataFonction"  value={{item._id}} >
+                    {{item.nom}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+              <span class="text-danger" *ngIf=" formValue.get('fonction').errors?.['required'] && formValue.get('fonction').touched">Fonction est obligatoire</span>
+              </div>
+
+
+              <div class="col-md-6">  
+                <mat-form-field class="example-full-width">
+                  <mat-label>Grade</mat-label>
+                
+              <mat-select matNativeControl  required formControlName="grade">
+                
+                <mat-option *ngFor="let item of dataGrade"  value={{item._id}} >
+                    {{item.nom}}
+                </mat-option>
+                
+              </mat-select>
+            </mat-form-field> 
+            <span class="text-danger" *ngIf=" formValue.get('grade').errors?.['required'] && formValue.get('grade').touched">Grade est obligatoire</span>
+              </div>
+              </div>
+             
+              
+              
+            
+            
+              
+                <div class="row">
+                  <img [src]="imageUrl" style="width: 110px; height: 100px;">
+
+                <input class="image"  type="file"  formControlName="file" #Image accept="image/*" (change)="selectFile($event.target.files)">
+                <div *ngIf="actionBtn=='Ajouter'">
+                <span class="text-danger" *ngIf=" formValue.get('file').errors?.['required'] && formValue.get('file').touched">Veuillez importer une image</span>
+              </div>
+                </div>
+              
+               
+                
+                
+                <div mat-dialog-actions [align]="'end'">
+                  
+                    <button mat-raised-button type="button" id="cancel" class="btn btn-secondary"  mat-dialog-close>Close</button>
+                    <button mat-raised-button type="submit"   [disabled]="formValue.invalid" class="btn btn-primary pull-right" (click)="gestionEmployee()">{{actionBtn}}</button>
+                   
+                    
+                    
+                </div>
+            </form>
+        
+        
+        

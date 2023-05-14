@@ -1,0 +1,156 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-primary">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                    <form [formGroup]="formValue">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="nom" type="text" required minlength="2"  formControlName="nom" [disabled]="true">
+                              </mat-form-field>
+                              <span class="text-danger" *ngIf=" formValue.get('nom').errors?.['required'] && formValue.get('nom').touched">Nom est obligatoire</span>
+                   
+                              <span class="text-danger" *ngIf="formValue.get('nom').errors?.['minlength'] ">Nom doit composer au moins deux caractères</span>
+                          </div>
+
+                          <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="prénom" required minlength="2"  formControlName="prenom" [disabled]="true">
+                            </mat-form-field>
+                            <span class="text-danger" *ngIf=" formValue.get('prenom').errors?.['required'] && formValue.get('prenom').touched">Prénom est obligatoire</span>
+                   
+                            <span class="text-danger" *ngIf="formValue.get('prenom').errors?.['minlength'] ">Prénom doit composer au moins deux caractères</span>
+                           
+                        </div>
+                          </div>
+                          
+                        <div class="row">
+                          <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Email address" type="email" email required formControlName="email" [disabled]="true">
+                              </mat-form-field>
+                              <span class="text-danger" *ngIf=" formValue.get('email').errors?.['required'] && formValue.get('email').touched">Email est obligatoire</span>
+                   
+                              <span class="text-danger" *ngIf=" formValue.get('email').errors?.['email']">Email est erroné</span>
+                          </div>
+
+
+                          <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="age" type="number" required min="20" max="65" formControlName="age" [disabled]="true">
+                            </mat-form-field>
+                            <span class="text-danger" *ngIf=" formValue.get('age').errors?.['required'] && formValue.get('age').touched">Âge est obligatoire</span>
+                            <span class="text-danger" *ngIf="formValue.get('age').errors?.['min']">l'âge doit être au minimum 20</span>
+                            <span class="text-danger" *ngIf="formValue.get('age').errors?.['max'] ">l'âge doit être au maximum 65</span> 
+                          </div>
+                      </div>
+                    
+                          <div class="row">
+                          <div class="col-md-6" >
+                            <mat-form-field class="example-full-width" >
+                              <input matInput  placeholder="teléphone" type="text" type="number" required min="10000000" max="99999999" formControlName="tel" >
+                            </mat-form-field>
+                            <span class="text-danger" *ngIf=" formValue.get('tel').errors?.['required'] && formValue.get('tel').touched">Téléphone est obligatoire</span>
+                            <span class="text-danger" *ngIf="(formValue.get('tel').errors?.['min'] || formValue.get('tel').errors?.['max'])">Téléphone doit être 8 nombres</span>
+                          </div>
+
+
+                          <div class="col-md-6">
+                            <mat-form-field class="example-full-width" >
+                              <input matInput placeholder="password" type="password" required minlength="4" formControlName="motdepasse">
+                            </mat-form-field>
+                            <span class="text-danger" *ngIf=" formValue.get('motdepasse').errors?.['required'] && formValue.get('motdepasse').touched">Mot de passe est obligatoire</span>
+                            <span class="text-danger" *ngIf="formValue.get('motdepasse').errors?.['minlength'] ">Mot de passe doit composer au moins six caractères</span>
+                          </div>
+                      </div>
+                     
+                      <div class="row">
+                        <div class="col-md-6">  
+                          <mat-form-field class="example-full-width">
+                            <mat-label>Grade</mat-label>
+                          
+                        <mat-select matNativeControl  required formControlName="grade" [disabled]="true">
+                          
+                          <mat-option *ngFor="let item of dataGrade"  value={{item._id}} >
+                              {{item.nom}}
+                          </mat-option>
+                          
+                        </mat-select>
+                      </mat-form-field> 
+                      <span class="text-danger" *ngIf=" formValue.get('grade').errors?.['required'] && formValue.get('grade').touched">Rôle est obligatoire</span>
+                        </div>
+
+                        
+
+                        <div class="col-md-6">  
+                          <mat-form-field class="example-full-width">
+                            <mat-label>Fonction</mat-label>
+                          
+                        <mat-select matNativeControl required formControlName="fonction" [disabled]="true">
+                          
+                          <mat-option *ngFor="let item of dataFonction"  value={{item._id}} >
+                              {{item.nom}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field> 
+                        <span class="text-danger" *ngIf=" formValue.get('fonction').errors?.['required'] && formValue.get('fonction').touched">Fonction est obligatoire</span>
+                        </div>
+
+                        
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">  
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Role</mat-label>
+                          <mat-select matNativeControl   multiple required formControlName="role" [disabled]="true">
+                            <mat-option *ngFor="let item of dataRole"  value={{item._id}} >
+                              {{item.nom}}
+                          </mat-option>
+                          </mat-select>
+                        </mat-form-field> 
+                        <span class="text-danger" *ngIf=" formValue.get('role').errors?.['required'] && formValue.get('role').touched">Rôle est obligatoire</span>
+                          </div>
+
+                        </div>
+                       
+                       
+                          
+                              
+                              <button mat-raised-button type="submit"  [disabled]="formValue.invalid" class="btn btn-primary pull-right" (click)="updatemployee()">Modifier mot de passe</button>
+                              <div class="clearfix"></div>
+                              
+                       
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                    <input type="file" style="display:none">
+                    <label for="input">
+                          <img class="img" src={{image}} />
+                        </label>
+                         
+                      
+                  </div>
+                  <div class="card-body">
+                      
+                      <h4 class="card-title">{{currentUser.nom}} {{currentUser.prenom}}</h4>
+                      <p class="card-description">
+                         Bienvenue au Centre Informatique du Ministère de la Santé 
+                      </p>
+                      <a href="http://www.cims.rns.tn/" class="btn btn-primary btn-round">CIMS</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

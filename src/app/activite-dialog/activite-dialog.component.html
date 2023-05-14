@@ -1,0 +1,103 @@
+
+         <h2 mat-dialog-title>Activité</h2> 
+         
+          <form [formGroup]="formValue">
+            <div class="row">
+              <div class="col-md-12"> 
+                
+               
+                <mat-form-field class="example-full-width">
+                  <mat-label>Type</mat-label> 
+                
+              <mat-select matNativeControl required formControlName="type" >
+                <mat-option *ngFor="let item of dataType" [value]="item.value" (click)="getActiviteType()">{{item.value}}</mat-option>
+          
+              </mat-select>
+            </mat-form-field>
+            <span class="text-danger" *ngIf=" formValue.get('type').errors?.['required'] && formValue.get('type').touched">Type est obligatoire</span>
+              </div>
+              </div>
+
+
+
+              <form [formGroup]="formValueActivite" *ngIf="type!=null && showAdd && !showinput && dataActiviteType?.length!=0">
+              <div class="row" >
+                <div class="col-md-12"> 
+                  
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Activité</mat-label> 
+                  
+                <mat-select matNativeControl required formControlName="activite" > 
+                  
+                  <mat-option *ngFor="let item of dataActiviteType" value={{item._id}} (click)="getTitreActiviteForm()">
+                    {{item.titre}}
+                </mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+                </div>
+                </div>
+               
+              
+              </form>
+
+
+              <div *ngIf="(activite==null ||activite=='') && type!=null && showAdd">
+              <input  type="checkbox" name="super" value="valeur attachée au bouton" (click)="myFunction()">
+                <label class="checkbox"  for="chekajout">Ajouter une nouvelle activité</label>
+              </div>
+                  
+              
+              
+           
+             
+          <div *ngIf="(showinput && (activite==null ||activite==''))||(showUpdate)">
+            <div class="row" >
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <input matInput  placeholder="Titre" type="text" required minlength="2"  formControlName="titre">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf=" formValue.get('titre').errors?.['required'] && formValue.get('titre').touched">Titre est obligatoire</span>
+                   
+                    <span class="text-danger" *ngIf="formValue.get('titre').errors?.['minlength'] ">Titre doit composer au moins deux caractères</span>
+                </div>
+                </div>
+
+                <div class="row" >
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput  placeholder="Description" type="text" required minlength="2"  formControlName="description"></textarea>
+                  </mat-form-field>
+                  <span class="text-danger" *ngIf=" formValue.get('description').errors?.['required'] && formValue.get('description').touched">Description est obligatoire</span>
+                   
+                    <span class="text-danger" *ngIf="formValue.get('description').errors?.['minlength'] ">Description doit composer au moins deux caractères</span>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  
+                      <mat-label class="btn btn-default p-0">
+                        <input type="file" [required]="!editData" formControlName="file" (change)="selectFile($event)" />
+                      </mat-label>
+                      <span class="text-danger" *ngIf="!editData && formValue.get('file').errors?.['required'] && formValue.get('file').touched">Fichier est obligatoire</span>
+                  
+            </div>
+            </div>
+          </div>
+          
+            
+                
+          <div  mat-dialog-actions [align]="'end'">
+                  
+                    <button type="button" id="cancel" class="btn btn-secondary" mat-dialog-close>Close</button>
+                    <button mat-raised-button type="submit" *ngIf="showAdd && showinput"  [disabled]="formValue.invalid" class="btn btn-primary pull-right" (click)="add()">Ajouter</button>
+                    <button mat-raised-button type="submit" *ngIf="showAdd && (activite!=null && activite!='')"  [disabled]="formValueActivite.invalid" class="btn btn-primary pull-right" (click)="affecter()">Affecter</button>
+                    <button mat-raised-button type="submit" *ngIf="showUpdate"  [disabled]="formValue.invalid" class="btn btn-primary pull-right" (click)="updateactivite()">Modifier</button>
+                    
+                    
+                </div>
+                
+            </form>
+    
+        
+      

@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Grade</h2> 
+          <form [formGroup]="formValue">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nom" type="text" required minlength="2"maxlength="50" formControlName="nom">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf=" formValue.get('nom').errors?.['required'] && formValue.get('nom').touched">Nom est obligatoire</span>
+                   
+                  <span class="text-danger" *ngIf="formValue.get('nom').errors?.['minlength'] && formValue.get('nom').touched ">Nom doit composer au moins deux caractères</span>
+                </div>
+                </div>
+            
+                <div mat-dialog-actions [align]="'end'">
+                  
+                    <button type="button" id="cancel" class="btn btn-secondary" mat-dialog-close>Close</button>
+                    <button mat-raised-button type="submit" [disabled]="formValue.invalid" class="btn btn-primary pull-right"(click)="gestionGrade()">{{actionBtn}}</button>
+                    
+                    
+                    
+                </div>
+            </form>
+           
